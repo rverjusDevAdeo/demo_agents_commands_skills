@@ -1,6 +1,6 @@
 ---
 description: Generates a structured presentation card for an animal passed as argument.
-agent: demo-chtimi
+agent: demo-english
 ---
 
 # Demo Presenter
