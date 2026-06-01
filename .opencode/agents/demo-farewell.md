@@ -1,7 +1,7 @@
 ---
 description: Aggregation agent — reads multiple input files and composes a faithful markdown summary as output.
 mode: subagent
-model: github-copilot/claude-haiku-4.5
+model: github-copilot/claude-sonnet-4.6
 permission:
   edit: allow
   bash: allow

@@ -1,7 +1,7 @@
 ---
 description: Demo agent that writes its output in English.
 mode: primary
-model: github-copilot/claude-haiku-4.5
+model: github-copilot/claude-sonnet-4.6
 permission:
   skill:
     demo-yaml: allow

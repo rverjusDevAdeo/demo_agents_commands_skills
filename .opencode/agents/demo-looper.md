@@ -1,7 +1,7 @@
 ---
 description: runs a control-flow loop on an input read from a file, generates N static artifacts as output.
 mode: subagent
-model: github-copilot/claude-haiku-4.5
+model: github-copilot/claude-sonnet-4.6
 permission:
   edit: allow
   bash: allow

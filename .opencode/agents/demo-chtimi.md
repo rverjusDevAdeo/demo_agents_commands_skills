@@ -1,7 +1,7 @@
 ---
 description: Agent de démo qui écrit sa sortie en ch'ti (patois du Nord).
 mode: primary
-model: github-copilot/claude-haiku-4.5
+model: github-copilot/claude-sonnet-4.6
 permission:
   skill:
     demo-json: allow
