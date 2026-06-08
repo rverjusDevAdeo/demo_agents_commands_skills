@@ -55,7 +55,7 @@ When opencode starts in a project, it automatically discovers everything inside 
 
 Every agent, command and skill is just a **Markdown file with a YAML frontmatter** (the part between the `---` lines). The frontmatter configures the block; the Markdown body is the prompt/instructions.
 
-**A command** (`commands/*.md`):
+**A command** (`commands/*.md`) — [↗ docs](https://opencode.ai/docs/commands/):
 ```markdown
 ---
 description: what this command does          # shown in the /command picker
@@ -65,7 +65,7 @@ agent: demo-greeter                          # WHO runs this workflow
 Instructions, variables, steps, expected report…
 ```
 
-**An agent** (`agents/*.md`):
+**An agent** (`agents/*.md`) — [↗ docs](https://opencode.ai/docs/agents/):
 ```markdown
 ---
 description: a short summary of the personality
@@ -81,7 +81,7 @@ permission:          # what this agent is allowed to do
 You are an agent specialized in…             # the system prompt
 ```
 
-**A skill** (`skills/<name>/SKILL.md`):
+**A skill** (`skills/<name>/SKILL.md`) — [↗ docs](https://opencode.ai/docs/skills/):
 ```markdown
 ---
 name: demo-yaml
@@ -93,6 +93,27 @@ description: Format the final output as YAML. Use proactively when…
 > 💡 **`mode: primary` vs `mode: subagent`**
 > - **primary** = an agent you can talk to directly and switch with **Tab** in the opencode UI.
 > - **subagent** = a specialist that doesn't chat with you; it's invoked *by a command or by another agent* (via the `task` tool) to do one job. The pipeline in Demo 2 uses subagents.
+
+### The tools — what an agent can actually *do*
+
+A prompt only *describes* work; **tools are how an agent acts on the world** — read a file, run a command, fetch a URL, spawn a subagent. opencode ships a fixed set of built-in tools, and an agent's `permission:` block (see the agent example above) decides **which ones it's allowed to use**. That's why in Demo 1 the agents can write files but `webfetch: deny` keeps them off the network.
+
+| Tool | What it does |
+|---|---|
+| `read` | Read a file's contents |
+| `write` | Create a file (or overwrite one) |
+| `edit` | Modify an existing file via exact string replacement |
+| `bash` | Run a shell command (e.g. `ls`, `cat`, `mkdir`) |
+| `glob` | Find files by name pattern |
+| `grep` | Search inside files with a regex |
+| `webfetch` | Fetch and read a web page |
+| `websearch` | Search the web |
+| `task` | **Spawn a subagent** to run one job — the orchestrator's tool in Demo 2 |
+| `skill` | Load a skill on demand (this is what `skill: { demo-yaml: allow }` gates) |
+| `todowrite` | Track a multi-step to-do list during a run |
+| `question` | Ask the user a question mid-run |
+
+> 🔐 **Tools meet permissions.** Each tool can be set to `allow`, `ask`, or `deny` in an agent's frontmatter. The two demos lean on exactly three: `bash`/`write`/`read` to pass data through files, `task` to orchestrate (Demo 2), and `skill` to switch the output format (Demo 1). Full list: [↗ Tools docs](https://opencode.ai/docs/tools/) · permissions: [↗ Permissions docs](https://opencode.ai/docs/permissions/).
 
 ---
 
@@ -344,6 +365,8 @@ cat   demo_outputs/<timestamp>/summary.md
 - 🧩 [Commands](https://opencode.ai/docs/commands/) — the WHAT
 - 🤖 [Agents](https://opencode.ai/docs/agents/) — the WHO
 - 🛠️ [Skills](https://opencode.ai/docs/skills/) — the HOW
+- 🔧 [Tools](https://opencode.ai/docs/tools/) — what agents can DO
+- 🔐 [Permissions](https://opencode.ai/docs/permissions/) — `allow` / `ask` / `deny`
 - 🔌 [Plugins](https://opencode.ai/docs/plugins/) — observability
 
 > 📁 The two examples are intentionally tiny and deterministic. Once the mechanics click, the same four blocks scale up to real workflows.
