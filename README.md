@@ -12,12 +12,12 @@ opencode lets you customize how the AI works using four kinds of files. The sing
 
 | Block | Answers… | What it is | Lives in | Docs |
 |---|---|---|---|---|
-| **Command** | **WHAT** | A reusable *workflow* / scenario you trigger with `/name` | `.opencode/commands/` | [↗](https://opencode.ai/docs/commands/) |
+| **Command** | **WHAT** | A reusable *workflow* you trigger with `/name` — **parametrizable like a function** (`/name arg`) | `.opencode/commands/` | [↗](https://opencode.ai/docs/commands/) |
 | **Agent** | **WHO** | A *personality*: language, tone, model, permissions | `.opencode/agents/` | [↗](https://opencode.ai/docs/agents/) |
 | **Skill** | **HOW** | A *one-off capability* loaded on demand (here: output format) | `.opencode/skills/` | [↗](https://opencode.ai/docs/skills/) |
 | **Plugin** | **OBSERVABILITY** | TypeScript *hooks* that watch and log what happens | `.opencode/plugins/` | [↗](https://opencode.ai/docs/plugins/) |
 
-> 🧠 **Keep this separation in your head.** A command describes *what to produce*. An agent decides *who produces it*. A skill changes *how* the result looks. A plugin just *watches*. The whole point of the two demos below is to show that you can mix and match these blocks instead of duplicating code.
+> 🧠 **Keep this separation in your head.** A command describes *what to produce* — and like a function it **takes arguments** (`/demo-presenter chat`, where `chat` is `$1`/`$ARGUMENTS`), so the same workflow runs on different inputs. An agent decides *who produces it*. A skill changes *how* the result looks. A plugin just *watches*. The whole point of the two demos below is to show that you can mix and match these blocks instead of duplicating code.
 
 ---
 
