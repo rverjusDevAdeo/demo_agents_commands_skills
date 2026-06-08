@@ -8,7 +8,7 @@ A minimal demo that shows, in a single simple scenario, how to wire together the
 - a **loop-based workflow** (Level 3 — Control Flow) in the middle of the pipeline
 - a **dedicated TypeScript plugin** that logs only demo events
 
-The demo intentionally "does nothing meaningful" — everything is static and deterministic so the mechanics stay visible rather than hidden behind generated content.
+The demo intentionally "does nothing meaningful": the **structure is fixed and the data flow is deterministic** (steps 1 and 3 produce reproducible content), so the mechanics stay visible rather than hidden behind generated content. The only generative part is step 2 (`demo_loop`), which produces one short fact per item to illustrate a real control-flow loop.
 
 ---
 
@@ -129,7 +129,7 @@ For each filtered event:
 
 The plugin is non-blocking (global catch) — it never interrupts the opencode flow, like the other plugins in the repo.
 
-Activation: already declared in `opencode.json` → `plugin: [..., "./.opencode/plugins/demo-logger.ts"]`. Restart opencode after editing the `plugin` array so newly added plugins are loaded.
+Activation: **no config needed**. opencode auto-loads any local plugin placed under `.opencode/plugins/` at startup (per the [official docs](https://opencode.ai/docs/plugins/): *"Files placed here are automatically loaded at startup"*; only npm-package plugins require a `plugin: [...]` array in `opencode.json`). Restart opencode after adding or editing a plugin file so it is reloaded.
 
 ---
 
@@ -172,5 +172,5 @@ A few ideas if you want to modify it without rewriting everything:
 
 - **Add a step 4**: copy a sub-command + an agent pattern → the orchestrator just adds a 4th `task` call.
 - **Parallelize some steps**: if two steps are independent, the orchestrator can issue multiple `task` calls in the same response (see `parallel_subagents.md`).
-- **Swap in real generation**: replace the static item content by an LLM/MCP call — the agent stays the same, only the slash command's workflow changes.
+- **Make every step generative**: steps 1 and 3 are deterministic on purpose; replace their static content by an LLM/MCP call (like step 2 already does for its facts) — the agent stays the same, only the slash command's workflow changes.
 - **Log metrics**: enrich `demo-logger.ts` to measure each step's duration (`before`/`after` timestamps → delta).
